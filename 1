@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografica Nutrizione & Ergogenia nello Sport</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-corsa: #38bdf8;
+            --accent-tennis: #facc15;
+            --accent-hyrox: #f97316;
+            --border-color: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 35px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 900px) {
+            .grid-container {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card.corsa { border-top: 4px solid var(--accent-corsa); }
+        .card.tennis { border-top: 4px solid var(--accent-tennis); }
+        .card.hyrox { border-top: 4px solid var(--accent-hyrox); }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+            margin-bottom: 4px;
+        }
+
+        .card.corsa h2 { color: var(--accent-corsa); }
+        .card.tennis h2 { color: var(--accent-tennis); }
+        .card.hyrox h2 { color: var(--accent-hyrox); }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: 16px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        .section-content {
+            font-size: 0.92rem;
+            background-color: rgba(15, 23, 42, 0.4);
+            padding: 10px 12px;
+            border-radius: 6px;
+            border-left: 2px solid var(--border-color);
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            position: relative;
+            padding-left: 14px;
+        }
+
+        li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+        }
+
+        footer {
+            margin-top: 50px;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--text-main);
+            text-decoration: none;
+            border-bottom: 1px dotted var(--text-muted);
+        }
+
+        footer a:hover {
+            color: var(--accent-corsa);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Fisiologia & Integrazione nello Sport</h1>
+        <p>Matrice comparativa: Corsa di Resistenza, Tennis e HYROX</p>
+    </header>
+
+    <div class="grid-container">
+
+        <!-- CARD CORSA -->
+        <div class="card corsa">
+            <div class="card-header">
+                <h2>Corsa di Resistenza</h2>
+                <div class="subtitle">Sforzo Aerobico Continuo</div>
+            </div>
+
+            <div class="section-title">Modello & Fattore Limitante</div>
+            <div class="section-content">
+                Deplezione glicogeno epatico/muscolare, fatica centrale e danno muscolare eccentrico prolungato.
+            </div>
+
+            <div class="section-title">Fabbisogno Nutrizionale</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>CHO abituali:</strong> 6–12 g/kg/die[cite: 1]</li>
+                    <li><strong>CHO in gara:</strong> 60–90 g/h (Glucosio:Fruttosio)[cite: 1]</li>
+                    <li><strong>Proteine:</strong> 1,8–2,0 g/kg/die[cite: 1]</li>
+                </ul>
+            </div>
+
+            <div class="section-title">Integrazione Tier A</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>Nitrati (Barbabietola):</strong> Riduzione costo di O₂[cite: 1]</li>
+                    <li><strong>Caffeina (3–6 mg/kg):</strong> Riduzione RPE e fatica centrale[cite: 1]</li>
+                    <li><strong>Sodio:</strong> 300–600 mg/h in gare lunghe[cite: 1]</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CARD TENNIS -->
+        <div class="card tennis">
+            <div class="card-header">
+                <h2>Tennis</h2>
+                <div class="subtitle">Intermittente Aciclico</div>
+            </div>
+
+            <div class="section-title">Modello & Fattore Limitante</div>
+            <div class="section-content">
+                Calo di coordinazione e reattività; deplezione PCr negli scrivi esplosivi (4-10s)[cite: 1].
+            </div>
+
+            <div class="section-title">Fabbisogno Nutrizionale</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>CHO abituali:</strong> 6–8 g/kg/die[cite: 1]</li>
+                    <li><strong>CHO in partita:</strong> 30–60 g/h (soluzione elettrolitica)[cite: 1]</li>
+                    <li><strong>Proteine:</strong> 1,4–1,8 g/kg/die[cite: 1]</li>
+                </ul>
+            </div>
+
+            <div class="section-title">Integrazione Tier A</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>Creatina Monoidrato:</strong> Risintesi PCr tra i punti (20s)[cite: 1]</li>
+                    <li><strong>Beta-Alanina / Bicarbonato:</strong> Buffering acido[cite: 1]</li>
+                    <li><strong>Caffeina:</strong> Accuratezza colpi e focus cognitivo[cite: 1]</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CARD HYROX -->
+        <div class="card hyrox">
+            <div class="card-header">
+                <h2>HYROX</h2>
+                <div class="subtitle">Fitness Ibrido ad Alta Intensità</div>
+            </div>
+
+            <div class="section-title">Modello & Fattore Limitante</div>
+            <div class="section-content">
+                Elevata risposta lattacida (8,5 mmol/L nelle stazioni), RPE 18/20 e danno muscolare eccentrico[cite: 1].
+            </div>
+
+            <div class="section-title">Fabbisogno Nutrizionale</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>CHO abituali:</strong> 7–10 g/kg/die[cite: 1]</li>
+                    <li><strong>CHO in gara:</strong> 30–45 g/h[cite: 1]</li>
+                    <li><strong>Proteine:</strong> 1,8–2,2 g/kg/die[cite: 1]</li>
+                </ul>
+            </div>
+
+            <div class="section-title">Integrazione Tier A</div>
+            <div class="section-content">
+                <ul>
+                    <li><strong>Beta-Alanina:</strong> Buffering H⁺ per la tolleranza al lattato[cite: 1]</li>
+                    <li><strong>Creatina:</strong> Potenza nelle stazioni ad alto carico[cite: 1]</li>
+                    <li><strong>Nitrati + Caffeina:</strong> Efficienza di corsa e tolleranza allo sforzo[cite: 1]</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Scheda sintetica a cura del <strong>Dott. William Agostini</strong> – Biologo Nutrizionista & Chinesiologo Clinico</p>
+        <p style="margin-top: 8px;">Per approfondimenti scientifici o informazioni sui protocolli: <a href="mailto:info@tuodominio.it">Contatti</a></p>
+    </footer>
+
+</body>
+</html>
