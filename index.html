@@ -1,262 +1,525 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Infografica Nutrizione & Ergogenia nello Sport</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-corsa: #38bdf8;
-            --accent-tennis: #facc15;
-            --accent-hyrox: #f97316;
-            --border-color: #334155;
-        }
+    <title>Dott. William Agostini - Nutrizione & Integrazione nello Sport</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            line-height: 1.6;
-            padding: 20px 15px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 35px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        header h1 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
-        }
-
-        header p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .grid-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 20px;
-        }
-
-        @media (min-width: 900px) {
-            .grid-container {
-                grid-template-columns: repeat(3, 1fr);
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            600: '#0369a1',
+                            700: '#075985',
+                            900: '#0c4a6e',
+                        },
+                        running: '#10b981', // Verde Energico
+                        tennis: '#f59e0b',  // Giallo/Arancio Tennis
+                        hyrox: '#ef4444',   // Rosso Intenso Hyrox
+                    }
+                }
             }
         }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
         }
-
-        .card.corsa { border-top: 4px solid var(--accent-corsa); }
-        .card.tennis { border-top: 4px solid var(--accent-tennis); }
-        .card.hyrox { border-top: 4px solid var(--accent-hyrox); }
-
-        .card-header h2 {
-            font-size: 1.4rem;
-            margin-bottom: 4px;
-        }
-
-        .card.corsa h2 { color: var(--accent-corsa); }
-        .card.tennis h2 { color: var(--accent-tennis); }
-        .card.hyrox h2 { color: var(--accent-hyrox); }
-
-        .subtitle {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-top: 16px;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
-
-        .section-content {
-            font-size: 0.92rem;
-            background-color: rgba(15, 23, 42, 0.4);
-            padding: 10px 12px;
-            border-radius: 6px;
-            border-left: 2px solid var(--border-color);
-        }
-
-        ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        li {
-            font-size: 0.9rem;
-            margin-bottom: 6px;
-            position: relative;
-            padding-left: 14px;
-        }
-
-        li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
-        }
-
-        footer {
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid var(--border-color);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
-        footer a {
-            color: var(--text-main);
-            text-decoration: none;
-            border-bottom: 1px dotted var(--text-muted);
-        }
-
-        footer a:hover {
-            color: var(--accent-corsa);
+        .gradient-bg {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
 
-    <header>
-        <h1>Fisiologia & Integrazione nello Sport</h1>
-        <p>Matrice comparativa: Corsa di Resistenza, Tennis e HYROX</p>
+    <!-- NAVBAR / HEADER BRAND -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- BRAND / LOGO AREA -->
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="openLogoModal()" title="Clicca per modificare il logo">
+                <div id="logo-container" class="w-12 h-12 rounded-xl bg-gradient-to-tr from-brand-600 to-sky-400 flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform overflow-hidden">
+                    <i class="fa-solid fa-user-doctor text-xl" id="logo-fallback"></i>
+                    <img id="logo-img" src="" class="w-full h-full object-cover hidden" alt="Logo Aziendale">
+                </div>
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-xl font-extrabold text-slate-900 tracking-tight">Dott. William Agostini</span>
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-500 font-medium">Biologo Nutrizionista & Chinesiologo Clinico</p>
+                </div>
+            </div>
+
+            <!-- QUICK NAV -->
+            <nav class="hidden md:flex items-center gap-6 text-sm font-semibold text-slate-600">
+                <a href="#corsa" class="hover:text-running transition-colors flex items-center gap-1.5"><i class="fa-solid fa-person-running"></i> Corsa</a>
+                <a href="#tennis" class="hover:text-tennis transition-colors flex items-center gap-1.5"><i class="fa-solid fa-table-tennis-paddle-ball"></i> Tennis</a>
+                <a href="#hyrox" class="hover:text-hyrox transition-colors flex items-center gap-1.5"><i class="fa-solid fa-dumbbell"></i> Hyrox</a>
+            </nav>
+        </div>
     </header>
 
-    <div class="grid-container">
+    <!-- HERO SECTION -->
+    <section class="gradient-bg text-white py-16 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+        <div class="absolute -right-20 -bottom-20 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-sky-300 text-xs font-semibold backdrop-blur-md mb-6 border border-white/10">
+                <i class="fa-solid fa-flask text-amber-400"></i> Guida Scientifica Semplificata per Atleti
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-4 leading-tight">
+                Alimentazione e Integrazione Perfetta per <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-rose-400">Corsa, Tennis e HYROX</span>
+            </h1>
+            <p class="text-slate-300 text-base sm:text-lg max-w-3xl mx-auto font-normal leading-relaxed mb-8">
+                Capire come nutrirsi non deve essere complicato. Scopri in modo semplice e pratico cosa mangiare e quali integratori scegliere per migliorare le tue prestazioni sportive, basato sui più recenti studi scientifici.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl mx-auto text-left">
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-running text-2xl font-bold mb-1"><i class="fa-solid fa-person-running mr-2"></i>Corsa</div>
+                    <p class="text-xs text-slate-300">Gestione dell'energia sulle lunghe distanze e idratazione costante.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-tennis text-2xl font-bold mb-1"><i class="fa-solid fa-baseball mr-2"></i>Tennis</div>
+                    <p class="text-xs text-slate-300">Riflessi pronti, scatti ripetuti e recupero tra un game e l'altro.</p>
+                </div>
+                <div class="bg-white/5 border border-white/10 rounded-2xl p-4 backdrop-blur-sm">
+                    <div class="text-hyrox text-2xl font-bold mb-1"><i class="fa-solid fa-fire mr-2"></i>HYROX</div>
+                    <p class="text-xs text-slate-300">Forza muscolare ed resistenza aerobica spinta al massimo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-        <!-- CARD CORSA -->
-        <div class="card corsa">
-            <div class="card-header">
-                <h2>Corsa di Resistenza</h2>
-                <div class="subtitle">Sforzo Aerobico Continuo</div>
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-16">
+
+        <!-- CONFRONTO RAPIDO FABBISOGNO -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 shadow-sm">
+            <div class="max-w-3xl mb-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-chart-simple text-brand-600"></i> Di quanti Carboidrati e Proteine hai bisogno?
+                </h2>
+                <p class="text-sm text-slate-600">
+                    I Carboidrati sono la tua benzina principale per fare sforzo. Le Proteine servono a riparare e proteggere i muscoli. Ecco come variano le quantità quotidiane raccomandate per kg di peso corporeo in base allo sport.
+                </p>
+            </div>
+            <div class="h-72 w-full">
+                <canvas id="macroChart"></canvas>
+            </div>
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-center text-xs text-slate-500">
+                <div class="p-2 rounded-xl bg-slate-100"><strong class="text-slate-800">Corsa:</strong> Focus sui carboidrati per fare rifornimento continuo.</div>
+                <div class="p-2 rounded-xl bg-slate-100"><strong class="text-slate-800">Tennis:</strong> Equilibrio tra energia rapida e protezione muscolare.</div>
+                <div class="p-2 rounded-xl bg-slate-100"><strong class="text-slate-800">HYROX:</strong> Fabbisogno elevato di entrambi per reggere lo sforzo estremo.</div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 1: CORSA -->
+        <section id="corsa" class="scroll-mt-24 space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-running pb-3">
+                <div class="w-10 h-10 rounded-xl bg-running/10 text-running flex items-center justify-center font-bold text-xl">
+                    <i class="fa-solid fa-person-running"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">1. Corsa di Resistenza</h2>
+                    <p class="text-xs text-slate-500 font-medium">Maratona, Mezza Maratona e Trail Running</p>
+                </div>
             </div>
 
-            <div class="section-title">Modello & Fattore Limitante</div>
-            <div class="section-content">
-                Deplezione glicogeno epatico/muscolare, fatica centrale e danno muscolare eccentrico prolungato.
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Spiegazione Semplice -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-6 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-amber-500"></i> Come gestire la benzina (Carboidrati) durante la corsa
+                    </h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Quando corri per più di un'ora, le riserve di zucchero nel fegato e nei muscoli (glicogeno) iniziano a svuotarsi. Se non le reintegri, arrivi al famoso "muro" della stanchezza.
+                    </p>
+                    
+                    <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-2">
+                        <div class="font-bold text-sm text-emerald-900 flex items-center gap-2">
+                            <i class="fa-solid fa-circle-check text-emerald-600"></i> Strategia Pratica per la Corsa:
+                        </div>
+                        <ul class="text-xs text-emerald-800 space-y-1.5 list-disc list-inside">
+                            <li><strong>Sotto i 45 minuti:</strong> Non serve mangiare durante l'allenamento, basta bere acqua.</li>
+                            <li><strong>Da 45 a 75 minuti:</strong> Basta sciacquarsi la bocca con una bevanda sportiva o un piccolo gel.</li>
+                            <li><strong>Oltre i 90 minuti:</strong> Prendi dai 60 ai 90 grammi di carboidrati ogni ora (es. gel energetici o maltodestrine) integrando anche **Sodio** (sale) per evitare i crampi e la disidratazione.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Integratori Utili -->
+                    <h4 class="font-bold text-sm text-slate-800 pt-2">Gli Integratori Scientificamente Efficaci per i Corridori:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-capsules text-brand-500 mr-1"></i> Caffeina (3-6 mg/kg)</div>
+                            <p class="text-xs text-slate-600">Riduce la percezione della fatica e migliora la concentrazione. Da assumere 45 minuti prima di correre.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-bottle-water text-brand-500 mr-1"></i> Sodio & Sali Minerali</div>
+                            <p class="text-xs text-slate-600">Fondamentali per evitare i crampi e mantenere l'idratazione se sudi molto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheda Sintetica Box -->
+                <div class="bg-gradient-to-br from-emerald-600 to-teal-800 text-white rounded-3xl p-6 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider font-bold text-emerald-200">Guida Rapida</span>
+                        <h3 class="text-xl font-bold mt-1 mb-4">Cosa mangiare per la Corsa</h3>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-300 block mb-0.5">Prima della Corsa (2-3 ore):</strong>
+                                Pasto ricco di carboidrati semplici (es. riso bianco, fetta biscottata con miele), povero di fibre e grassi per facilitare la digestione.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-300 block mb-0.5">Durante la Corsa:</strong>
+                                1 Gel ogni 30-40 minuti accompagnato da qualche sorso d'acqua.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-300 block mb-0.5">Subito Dopo:</strong>
+                                Un frullato con proteine in polvere + una banana per recuperare velocemente le energie.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/20 text-center text-[11px] text-emerald-100">
+                        <i class="fa-solid fa-award mr-1"></i> Evidenza scientifica: Raccomandazioni ISSN & ACSM
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 2: TENNIS -->
+        <section id="tennis" class="scroll-mt-24 space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-tennis pb-3">
+                <div class="w-10 h-10 rounded-xl bg-tennis/10 text-tennis flex items-center justify-center font-bold text-xl">
+                    <i class="fa-solid fa-table-tennis-paddle-ball"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">2. Tennis</h2>
+                    <p class="text-xs text-slate-500 font-medium">Lucidità mentale, reattività e sforzi intermittenti</p>
+                </div>
             </div>
 
-            <div class="section-title">Fabbisogno Nutrizionale</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>CHO abituali:</strong> 6–12 g/kg/die[cite: 1]</li>
-                    <li><strong>CHO in gara:</strong> 60–90 g/h (Glucosio:Fruttosio)[cite: 1]</li>
-                    <li><strong>Proteine:</strong> 1,8–2,0 g/kg/die[cite: 1]</li>
-                </ul>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Spiegazione Semplice -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-6 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-brain text-amber-500"></i> Come mantenere la concentrazione nei match lunghi
+                    </h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Il tennis è uno sport imprevedibile: una partita può durare 1 ora oppure oltre 3 ore. La chiave è mantenere la lucidità per prendere decisioni rapide ed evitare che le gambe diventino pesanti nei momenti decisivi.
+                    </p>
+                    
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 space-y-2">
+                        <div class="font-bold text-sm text-amber-900 flex items-center gap-2">
+                            <i class="fa-solid fa-lightbulb text-amber-600"></i> Il Segreto nei Cambi di Campo:
+                        </div>
+                        <p class="text-xs text-amber-800 leading-relaxed">
+                            Sfrutta i 90 secondi di pausa nei cambi di campo per bere a piccoli sorsi. Se il match supera i 60 minuti, introduci <strong>30-60g di carboidrati all'ora</strong> usando bevande isotoniche o gel liquidi facili da assimilare senza appesantire lo stomaco.
+                        </p>
+                    </div>
+
+                    <!-- Integratori Utili -->
+                    <h4 class="font-bold text-sm text-slate-800 pt-2">Integratori Top per il Tennista:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-bolt text-amber-500 mr-1"></i> Creatina Monoidrato (3-5g/die)</div>
+                            <p class="text-xs text-slate-600">Aumenta la potenza negli scatti brevi e ripetuti e nei colpi esplosivi (servizio e diritto).</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-eye text-brand-500 mr-1"></i> Caffeina a piccole dosi</div>
+                            <p class="text-xs text-slate-600">Mantiene i riflessi e i tempi di reazione veloci anche al terzo set.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheda Sintetica Box -->
+                <div class="bg-gradient-to-br from-amber-500 to-orange-700 text-white rounded-3xl p-6 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider font-bold text-amber-200">Guida Rapida</span>
+                        <h3 class="text-xl font-bold mt-1 mb-4">Cosa mangiare per il Tennis</h3>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">Prima della Partita:</strong>
+                                Pasto digeribile a base di carboidrati a basso indice glicemico (es. avena o pasta integrale con condimento leggero) 2.5-3 ore prima.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">Nei Cambi di Campo:</strong>
+                                Alterna sorsi d'acqua e bevande sportive con sali. Mangia mezza banana o un gel liquido se la partita si allunga.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">Dopo la Partita:</strong>
+                                Reintegra con acqua, sodio e un pasto completo con carboidrati e proteine entro 1 ora dal termine.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/20 text-center text-[11px] text-amber-100">
+                        <i class="fa-solid fa-trophy mr-1"></i> Strategie approvate dalla ITF (International Tennis Federation)
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEZIONE 3: HYROX -->
+        <section id="hyrox" class="scroll-mt-24 space-y-6">
+            <div class="flex items-center gap-3 border-b-2 border-hyrox pb-3">
+                <div class="w-10 h-10 rounded-xl bg-hyrox/10 text-hyrox flex items-center justify-center font-bold text-xl">
+                    <i class="fa-solid fa-dumbbell"></i>
+                </div>
+                <div>
+                    <h2 class="text-2xl font-extrabold text-slate-900">3. HYROX</h2>
+                    <p class="text-xs text-slate-500 font-medium">Resistenza ad alta intensità e forza funzionale</p>
+                </div>
             </div>
 
-            <div class="section-title">Integrazione Tier A</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>Nitrati (Barbabietola):</strong> Riduzione costo di O₂[cite: 1]</li>
-                    <li><strong>Caffeina (3–6 mg/kg):</strong> Riduzione RPE e fatica centrale[cite: 1]</li>
-                    <li><strong>Sodio:</strong> 300–600 mg/h in gare lunghe[cite: 1]</li>
-                </ul>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Spiegazione Semplice -->
+                <div class="lg:col-span-2 glass-card rounded-3xl p-6 space-y-4">
+                    <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-rose-500"></i> Come gestire la "bruciatura" muscolare nell'HYROX
+                    </h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        L'HYROX unisce 8 km di corsa a 8 stazioni di allenamento funzionale (Sled Push, Burpees, Wall Balls, ecc.). È una gara ad altissima intensità dove l'acido lattico e l'affaticamento muscolare salgono rapidamente.
+                    </p>
+                    
+                    <div class="bg-rose-50 border border-rose-200 rounded-2xl p-4 space-y-2">
+                        <div class="font-bold text-sm text-rose-900 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-rose-600"></i> La Sfida delle Sled & Burpees:
+                        </div>
+                        <p class="text-xs text-rose-800 leading-relaxed">
+                            Stazioni come la Sled Push consumano le riserve muscolari in pochi minuti. Arrivare alla gara con i muscoli saturi di glicogeno (tramite la ricarica di carboidrati nei 2 giorni precedenti) è fondamentale per non crollare a metà percorso.
+                        </p>
+                    </div>
+
+                    <!-- Integratori Utili -->
+                    <h4 class="font-bold text-sm text-slate-800 pt-2">Integrazione di Livello Avanzato per HYROX:</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-shield-halved text-rose-500 mr-1"></i> Beta-Alanina</div>
+                            <p class="text-xs text-slate-600">Aiuta a tamponare l'acidità muscolare ("bruciore") permettendoti di spingere più a lungo.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-dumbbell text-rose-500 mr-1"></i> Creatina</div>
+                            <p class="text-xs text-slate-600">Fondamentale per la forza pura necessaria a muovere i carichi pesanti (Sled, Farmer's Carry).</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                            <div class="font-bold text-xs text-brand-700 mb-1"><i class="fa-solid fa-wine-glass text-rose-500 mr-1"></i> Nitrati (Succo di Barbabietola)</div>
+                            <p class="text-xs text-slate-600">Migliorano l'afflusso di ossigeno ai muscoli durante le fasi di corsa tra le stazioni.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheda Sintetica Box -->
+                <div class="bg-gradient-to-br from-rose-600 to-red-800 text-white rounded-3xl p-6 flex flex-col justify-between shadow-lg">
+                    <div>
+                        <span class="text-xs uppercase tracking-wider font-bold text-rose-200">Guida Rapida</span>
+                        <h3 class="text-xl font-bold mt-1 mb-4">Cosa mangiare per l'HYROX</h3>
+                        
+                        <div class="space-y-3 text-xs">
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">Nei 2 giorni prima:</strong>
+                                Aumenta l'apporto di carboidrati (7-10g per kg di peso) per riempire al massimo le riserve muscolari.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">In Gara:</strong>
+                                Gel carbo a rapido assorbimento con sodio da assumere nelle fasi di corsa transitorie.
+                            </div>
+                            <div class="bg-white/10 p-3 rounded-xl backdrop-blur-sm">
+                                <strong class="text-amber-200 block mb-0.5">Dopo la Gara:</strong>
+                                Proteine ad alto valore biologico (es. Whey) + carboidrati veloci per avviare subito il recupero muscolare.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-6 pt-4 border-t border-white/20 text-center text-[11px] text-rose-100">
+                        <i class="fa-solid fa-bolt mr-1"></i> Protocollo per Atleti di Forza & Resistenza
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MODALE MODIFICA LOGO -->
+        <div id="logo-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+            <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <i class="fa-solid fa-image text-brand-600"></i> Personalizza il tuo Logo
+                    </h3>
+                    <button onclick="closeLogoModal()" class="text-slate-400 hover:text-slate-600 text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                
+                <p class="text-xs text-slate-500 mb-6">Scegli come inserire il tuo logo professionale nell'intestazione dell'applicazione.</p>
+
+                <div class="space-y-4">
+                    <!-- Opzione 1: File Upload -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">1. Carica un file dal tuo PC</label>
+                        <input type="file" id="logo-file-input" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100 cursor-pointer">
+                    </div>
+
+                    <div class="relative flex py-1 items-center">
+                        <div class="flex-grow border-t border-slate-200"></div>
+                        <span class="flex-shrink mx-3 text-xs text-slate-400 uppercase font-bold">Oppure</span>
+                        <div class="flex-grow border-t border-slate-200"></div>
+                    </div>
+
+                    <!-- Opzione 2: URL -->
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">2. Inserisci un Link Immagine (URL)</label>
+                        <input type="url" id="logo-url-input" placeholder="https://esempio.it/logo.png" class="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                    </div>
+                </div>
+
+                <div class="mt-6 flex justify-end gap-2">
+                    <button onclick="removeCustomLogo()" class="px-3 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 rounded-xl transition-colors">Rimuovi Logo</button>
+                    <button onclick="saveLogo()" class="px-4 py-2 text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 rounded-xl transition-colors shadow">Salva Modifiche</button>
+                </div>
             </div>
         </div>
 
-        <!-- CARD TENNIS -->
-        <div class="card tennis">
-            <div class="card-header">
-                <h2>Tennis</h2>
-                <div class="subtitle">Intermittente Aciclico</div>
-            </div>
+    </main>
 
-            <div class="section-title">Modello & Fattore Limitante</div>
-            <div class="section-content">
-                Calo di coordinazione e reattività; deplezione PCr negli scrivi esplosivi (4-10s)[cite: 1].
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 py-10 border-t border-slate-800 mt-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
+            <div class="flex justify-center items-center gap-2 text-white font-bold text-lg">
+                <i class="fa-solid fa-user-doctor text-brand-500"></i> Dott. William Agostini
             </div>
-
-            <div class="section-title">Fabbisogno Nutrizionale</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>CHO abituali:</strong> 6–8 g/kg/die[cite: 1]</li>
-                    <li><strong>CHO in partita:</strong> 30–60 g/h (soluzione elettrolitica)[cite: 1]</li>
-                    <li><strong>Proteine:</strong> 1,4–1,8 g/kg/die[cite: 1]</li>
-                </ul>
-            </div>
-
-            <div class="section-title">Integrazione Tier A</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>Creatina Monoidrato:</strong> Risintesi PCr tra i punti (20s)[cite: 1]</li>
-                    <li><strong>Beta-Alanina / Bicarbonato:</strong> Buffering acido[cite: 1]</li>
-                    <li><strong>Caffeina:</strong> Accuratezza colpi e focus cognitivo[cite: 1]</li>
-                </ul>
+            <p class="text-xs max-w-2xl mx-auto text-slate-400 leading-relaxed">
+                Biologo Nutrizionista & Chinesiologo Clinico. Le informazioni contenute in questa applicazione si basano sulla letteratura scientifica più recente e sono destinate a scopo informativo e formativo.
+            </p>
+            <div class="text-[11px] text-slate-400">
+                &copy; 2026 Dott. William Agostini. Tutti i diritti riservati.
             </div>
         </div>
-
-        <!-- CARD HYROX -->
-        <div class="card hyrox">
-            <div class="card-header">
-                <h2>HYROX</h2>
-                <div class="subtitle">Fitness Ibrido ad Alta Intensità</div>
-            </div>
-
-            <div class="section-title">Modello & Fattore Limitante</div>
-            <div class="section-content">
-                Elevata risposta lattacida (8,5 mmol/L nelle stazioni), RPE 18/20 e danno muscolare eccentrico[cite: 1].
-            </div>
-
-            <div class="section-title">Fabbisogno Nutrizionale</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>CHO abituali:</strong> 7–10 g/kg/die[cite: 1]</li>
-                    <li><strong>CHO in gara:</strong> 30–45 g/h[cite: 1]</li>
-                    <li><strong>Proteine:</strong> 1,8–2,2 g/kg/die[cite: 1]</li>
-                </ul>
-            </div>
-
-            <div class="section-title">Integrazione Tier A</div>
-            <div class="section-content">
-                <ul>
-                    <li><strong>Beta-Alanina:</strong> Buffering H⁺ per la tolleranza al lattato[cite: 1]</li>
-                    <li><strong>Creatina:</strong> Potenza nelle stazioni ad alto carico[cite: 1]</li>
-                    <li><strong>Nitrati + Caffeina:</strong> Efficienza di corsa e tolleranza allo sforzo[cite: 1]</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <footer>
-        <p>Scheda sintetica a cura del <strong>Dott. William Agostini</strong> – Biologo Nutrizionista & Chinesiologo Clinico</p>
-        <p style="margin-top: 8px;">Per approfondimenti scientifici o informazioni sui protocolli: <a href="mailto:info@tuodominio.it">Contatti</a></p>
     </footer>
 
+    <!-- LOGICA JAVASCRIPT -->
+    <script>
+        // Init Chart.js
+        document.addEventListener("DOMContentLoaded", function() {
+            initMacroChart();
+            loadSavedLogo();
+        });
+
+        // 1. GRAFICO MACRONUTRIENTI
+        function initMacroChart() {
+            const ctx = document.getElementById('macroChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Corsa (Maratona)', 'Tennis', 'HYROX'],
+                    datasets: [
+                        {
+                            label: 'Carboidrati (g / kg al giorno)',
+                            data: [8.5, 6.0, 8.0],
+                            backgroundColor: '#0284c7',
+                            borderRadius: 8
+                        },
+                        {
+                            label: 'Proteine (g / kg al giorno)',
+                            data: [1.4, 1.6, 2.0],
+                            backgroundColor: '#f59e0b',
+                            borderRadius: 8
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { font: { family: 'Plus Jakarta Sans', size: 12, weight: '600' } }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + ' g/kg';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Grammi per kg di peso corporeo' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // 2. GESTIONE MODALE LOGO E CARICAMENTO
+        function openLogoModal() {
+            document.getElementById('logo-modal').classList.remove('hidden');
+        }
+
+        function closeLogoModal() {
+            document.getElementById('logo-modal').classList.add('hidden');
+        }
+
+        function saveLogo() {
+            const fileInput = document.getElementById('logo-file-input');
+            const urlInput = document.getElementById('logo-url-input');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    applyLogoImg(e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+            } else if (urlInput.value.trim() !== '') {
+                applyLogoImg(urlInput.value.trim());
+            }
+
+            closeLogoModal();
+        }
+
+        function applyLogoImg(src) {
+            const logoImg = document.getElementById('logo-img');
+            const logoFallback = document.getElementById('logo-fallback');
+
+            logoImg.src = src;
+            logoImg.classList.remove('hidden');
+            logoFallback.classList.add('hidden');
+        }
+
+        function removeCustomLogo() {
+            const logoImg = document.getElementById('logo-img');
+            const logoFallback = document.getElementById('logo-fallback');
+
+            logoImg.src = '';
+            logoImg.classList.add('hidden');
+            logoFallback.classList.remove('hidden');
+
+            closeLogoModal();
+        }
+
+        function loadSavedLogo() {
+            // Predisposto per future persistenze
+        }
+    </script>
 </body>
 </html>
